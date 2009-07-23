@@ -1,4 +1,4 @@
-require 'rubygems'
+srequire 'rubygems'
 require 'activerecord'
 
 # Adapted from http://snippets.dzone.com/posts/show/1314 and
@@ -86,4 +86,22 @@ class WpTermRelationship < ActiveRecord::Wordpress
  set_table_name "wp_term_relationships"
  belongs_to :post, :class_name => 'WpBlogPost', :foreign_key => 'object_id'
  belongs_to :term_taxonomy, :class_name => 'WpTermTaxonomy'
+end
+
+class WpLink < ActiveRecord::Wordpress
+  set_primary_key 'link_id'
+end
+
+class WpUser < ActiveRecord::Wordpress
+  set_primary_key 'ID'
+  has_many :meta_details, :class_name => 'WpUserMeta', :foreign_key => 'user_id'
+end
+
+class WpUserMeta < ActiveRecord::Wordpress
+  set_primary_key 'umeta_id'
+  belongs_to :user, :class_name => 'WpUser'
+end
+
+class WpOption < ActiveRecord::Wordpress
+  set_primary_key 'option_id'
 end
