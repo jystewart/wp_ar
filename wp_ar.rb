@@ -54,6 +54,10 @@ class WpBlogPost < ActiveRecord::Wordpress
  named_scope :published, :conditions => {:post_status => 'publish'}
  default_scope :order => 'post_date DESC'
 
+ def published?
+   self.status == 'published' and self.post_date <= DateTime.now
+ end
+ 
  def tags
    taggings.collect(&:term)
  end
