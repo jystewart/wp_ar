@@ -1,4 +1,3 @@
-srequire 'rubygems'
 require 'activerecord'
 
 # Adapted from http://snippets.dzone.com/posts/show/1314 and
