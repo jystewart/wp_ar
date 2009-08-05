@@ -116,7 +116,8 @@ class WpUser < ActiveRecord::Wordpress
   before_validation_on_create :store_registration_time
   
   validates_presence_of :user_registered
-  
+  validates_uniqueness_of :user_email, :user_login
+
   def store_registration_time
     self.user_registered ||= DateTime.now
   end
