@@ -108,6 +108,10 @@ class WpUser < ActiveRecord::Wordpress
   end
   
   class <<self
+    # Note: Recent versions of WP do not simply store an MD5
+    # they use PHPPass (wp-includes/class-phpass.php)
+    # If anyone has written a ruby equivalent, please let me know so I 
+    # can integrate it
     def encrypt(password)
       Digest::MD5.hexdigest(password)
     end
