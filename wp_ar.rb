@@ -99,7 +99,7 @@ end
 class WpUser < ActiveRecord::Wordpress
   set_primary_key 'ID'
   has_many :meta_details, :class_name => 'WpUserMeta', :foreign_key => 'user_id'
-  before_create :store_registration_time
+  before_validation_on_create :store_registration_time
   
   validates_presence_of :user_registered
   
