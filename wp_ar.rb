@@ -51,6 +51,8 @@ class WpBlogPost < ActiveRecord::Wordpress
   has_many :term_taxonomies, :through => :term_relationships
   has_many :taggings, :through => :term_relationships, :source => :term_taxonomy, :conditions => ['wp_term_taxonomy.taxonomy = ?', 'post_tag']
 
+  belongs_to :author, :class_name => 'WpUser', :foreign_key => 'post_author'
+
   named_scope :published, :conditions => {:post_status => 'publish'}
   default_scope :order => 'post_date DESC'
 
@@ -109,6 +111,8 @@ end
 class WpUser < ActiveRecord::Wordpress
   set_primary_key 'ID'
   has_many :meta_details, :class_name => 'WpUserMeta', :foreign_key => 'user_id'
+  has_many :blog_posts, :class_name => 'WpBlogPost', :foreign_key => 'post_author'
+    
   before_validation_on_create :store_registration_time
   
   validates_presence_of :user_registered
