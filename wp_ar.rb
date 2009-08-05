@@ -54,6 +54,16 @@ class WpBlogPost < ActiveRecord::Wordpress
   named_scope :published, :conditions => {:post_status => 'publish'}
   default_scope :order => 'post_date DESC'
 
+  validates_presence_of :post_modified, :post_modified_gmt, :post_date, :post_date_gmt
+  before_validation :set_timestamps
+  
+  def set_timestamps
+    self.post_modified = DateTime.now
+    self.post_modified_gmt = self.post_modified.utc
+    self.post_date ||= self.post_modified
+    self.post_date_gmt ||= self.post_date.utc
+  end
+  
   def published?
     self.status == 'published' and self.post_date <= DateTime.now
   end
