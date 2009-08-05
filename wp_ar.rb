@@ -4,6 +4,7 @@ require 'activerecord'
 # considerably extended
 
 class ActiveRecord::Wordpress < ActiveRecord::Base
+  self.abstract_class = true
   establish_connection(
     :adapter => "mysql",
     :host => "localhost",
