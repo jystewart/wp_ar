@@ -133,6 +133,7 @@ class WpUser < ActiveRecord::Wordpress
 end
 
 class WpUserMeta < ActiveRecord::Wordpress
+  set_table_name 'wp_usermeta'
   set_primary_key 'umeta_id'
   belongs_to :user, :class_name => 'WpUser'
 end
